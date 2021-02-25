@@ -14,3 +14,46 @@ A função deve devolver uma lista de tuplos, cada um com um cartão e um email,
 dando prioridade aos cartões com mais digitos descobertos e, em caso de igualdade
 neste critério, aos emails menores (em ordem lexicográfica).
 """
+
+def repetidos(l_final, x):
+    if len(l_final) == 0:
+        return False
+    for elem in l_final:
+        if elem[1] == x[1]:
+            return True
+    return False 
+
+def hacker(log):
+    i=0
+    x=''
+    l_aux = []
+    l_final = []
+    number_final = []
+    for i,x in enumerate(log):
+        l_aux.append(x)
+        for p,e in enumerate(log[i+1:]):
+            if x[1] == e[1]:
+                l_aux.append(e)
+        if len(l_aux) > 1 and not repetidos(l_final, l_aux[0]):
+            number_final = list(l_aux[0][0])
+            for number in l_aux[1:]:
+                for pos, digito in enumerate(list(number)[0]):
+                    if digito != '*':
+                        number_final[pos] = digito
+            l_final.append((''.join(number_final), l_aux[0][1]))
+        else:
+            if not repetidos(l_final, x):
+                l_final.append(x)
+        l_aux = []
+        
+        conta=0
+    l_conta=[]
+    for cartao in l_final:
+        for digito in cartao[0]:
+            if digito != '*':
+                conta+=1
+        l_conta.append(conta)
+        conta=0
+        
+    return l_final
+  #Ainda não esta completa
