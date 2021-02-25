@@ -13,3 +13,46 @@ onde se movimentou desde o início da sequência de comandos ou desde o último 
 
 A função deve retornar a lista de todas os rectangulos (tuplos com 4 inteiros)
 '''
+def robot(comandos):
+    direcao = 0 # 0->ypos; 1->xpos; 2->yneg; 3->xneg
+    xmin = 0
+    xmax = 0
+    ymin = 0
+    ymax = 0
+    l_ret=[]
+    i=0
+    xAtual = 0
+    yAtual = 0
+    while i < len(comandos):
+        if comandos[i] == 'A':
+            if direcao == 0:
+                yAtual += 1
+                if ymax < yAtual:
+                    ymax = yAtual
+            elif direcao == 1:
+                xAtual += 1
+                if xmax < xAtual:
+                    xmax = xAtual
+            elif direcao == 2:
+                yAtual -= 1
+                if ymin > yAtual:
+                    ymin = yAtual
+            elif direcao == 3:
+                xAtual -= 1
+                if xmin > xAtual:
+                    xmin = xAtual
+        elif comandos[i] == 'E':
+            direcao = (direcao-1)%4
+        elif comandos[i] == 'D':
+            direcao = (direcao+1)%4
+        elif comandos[i] == 'H':
+            l_ret.append((xmin, ymin, xmax, ymax))
+            direcao = 0
+            xAtual = 0
+            yAtual = 0
+            xmin = 0
+            xmax = 0
+            ymin = 0
+            ymax = 0
+        i += 1
+    return l_ret
