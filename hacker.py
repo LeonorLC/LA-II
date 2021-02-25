@@ -21,7 +21,14 @@ def repetidos(l_final, x):
     for elem in l_final:
         if elem[1] == x[1]:
             return True
-    return False 
+    return False   
+    
+def conta (cartao):
+    conta=0
+    for digito in cartao[0]:
+        if digito != '*':
+              conta+=1
+    return conta
 
 def hacker(log):
     i=0
@@ -45,15 +52,18 @@ def hacker(log):
             if not repetidos(l_final, x):
                 l_final.append(x)
         l_aux = []
-        
-        conta=0
-    l_conta=[]
-    for cartao in l_final:
-        for digito in cartao[0]:
-            if digito != '*':
-                conta+=1
-        l_conta.append(conta)
-        conta=0
-        
-    return l_final
-  #Ainda não esta completa
+    l_sorted=sorted(l_final, key=conta, reverse= True)
+    l_aux2 = []
+    resultado = []
+    i=0
+    for i,elem in enumerate(l_sorted):
+        count = conta(elem)
+        l_aux2.append(elem)
+        for elem2 in l_sorted[i+1:]:
+            if count == conta(elem2):
+                l_aux2.append(elem2)
+                l_sorted.remove(elem2)
+        resultado += sorted(l_aux2, key=lambda x: x[1])
+        l_aux2 = []
+
+    return resultado
