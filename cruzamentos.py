@@ -15,3 +15,28 @@ listando para cada cruzamento um tuplo com o respectivo identificador e o númer
 Apenas deverão ser listados os cruzamentos que interliguem alguma rua, e os cruzamentos com o mesmo 
 nível de criticidade deverão ser listados por ordem alfabética.
 '''
+
+def cruzamentos(ruas):
+    l_letras=[]
+    for rua in ruas:
+        if rua[0] != rua[-1]:
+            l_letras.append(rua[0])
+            l_letras.append(rua[-1])
+        else:
+            l_letras.append(rua[0])
+
+    l_final=[]
+    letrasUsadas=[]
+    for i, letra1 in enumerate(l_letras):
+        conta=1
+        for letra2 in l_letras[i+1:]:
+            if letra2 == letra1:
+                conta += 1
+        if letra1 not in letrasUsadas:
+            l_final.append((letra1,conta))
+            letrasUsadas.append(letra1)
+
+    l_final= sorted(l_final,key=lambda x: (x[1],x[0]))
+    
+
+    return l_final
