@@ -46,3 +46,5 @@ def area(p,mapa):
     
 
     return len(listaFinal)
+
+#Só passa 5% de 13% dos testes
