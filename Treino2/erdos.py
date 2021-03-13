@@ -49,3 +49,5 @@ def erdos(artigos,n):
             break
     
     return erdosF
+
+#Só passa 10% de 13% dos testes
