@@ -41,6 +41,8 @@ def dijkstra(adj,o, destino):
 
 
 def viagem(rotas,o,d):
+    if rotas == [] or o == d:
+        return 0
     arestas=[]
     for rota in rotas:
         for i,viagem in enumerate(rota):
@@ -49,4 +51,4 @@ def viagem(rotas,o,d):
                 
     return dijkstra(build(arestas), o, d)
 
-#Só passa 10% de 13% dos testes
+#Passa todos os testes (13%)
