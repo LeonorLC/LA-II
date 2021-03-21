@@ -8,6 +8,57 @@ A função deverá devolver o tamanho do maior continente.
 
 '''
 
+def build(arestas):
+    adj = {}
+    for o,d in arestas:
+        if o not in adj:
+            adj[o] = set()
+        if d not in adj:
+            adj[d] = set()
+        adj[o].add(d)
+        adj[d].add(o)
+    return adj
+    
+def bfs(adj,o):
+    pai = {}
+    vis = {o}
+    queue = [o]
+    while queue:
+        v = queue.pop(0)
+        for d in adj[v]:
+            if d not in vis:
+                vis.add(d)
+                pai[d] = v
+                queue.append(d)
+    return pai
+
+def maior(vizinhos):
+    fronteiras = []
+    for viz in vizinhos:
+        for i,v in enumerate(viz):
+            if i+1 < len(viz):
+                fronteiras.append((v,viz[i+1]))
+    
+    paises = []
+    for vizinho in vizinhos:
+        for pais in vizinho:
+            if pais not in paises:
+                paises.append(pais)
+                
+    contiTamanhos = []
+    for pais in paises:
+        tam = len(bfs(build(fronteiras),pais))
+        contiTamanhos.append(tam)
+    
+    comp=0
+    for t in contiTamanhos:
+        if t > comp:
+            comp = t
+    return comp+1
+
+#Só passa 8% de 13% dos testes
+
+####Outra versão, passa menos  testes####
 def maior(vizinhos):
     
     if len(vizinhos) == 0:
