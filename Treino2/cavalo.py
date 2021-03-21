@@ -33,4 +33,4 @@ def saltos(o,d):
     
     return 0
   
-#Passa 10% de 13% dos testes
+#Só passa 10% de 13% dos testes
