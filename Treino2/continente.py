@@ -33,30 +33,26 @@ def bfs(adj,o):
     return pai
 
 def maior(vizinhos):
+    if len(vizinhos) == 0:
+        return 0
     fronteiras = []
+    paises = []
     for viz in vizinhos:
         for i,v in enumerate(viz):
             if i+1 < len(viz):
                 fronteiras.append((v,viz[i+1]))
-    
-    paises = []
-    for vizinho in vizinhos:
-        for pais in vizinho:
-            if pais not in paises:
-                paises.append(pais)
+            if v not in paises:
+                paises.append(v)
                 
-    contiTamanhos = []
+    maiorTamanho = 0 
     for pais in paises:
         tam = len(bfs(build(fronteiras),pais))
-        contiTamanhos.append(tam)
+        if tam > maiorTamanho:
+            maiorTamanho = tam
     
-    comp=0
-    for t in contiTamanhos:
-        if t > comp:
-            comp = t
-    return comp+1
+    return maiorTamanho+1
 
-#Só passa 8% de 13% dos testes
+#Só passa 10% de 13% dos testes
 
 ####Outra versão, passa menos  testes####
 def maior(vizinhos):
