@@ -10,6 +10,7 @@ da sequência, sendo o resultado pretendido o máximo obtido aplicando esta
 função a todos os sufixos da sequência de entrada.
 
 """
+
 def maior(lista):
     if lista == []:
         return 0
