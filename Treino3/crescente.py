@@ -10,3 +10,23 @@ da sequência, sendo o resultado pretendido o máximo obtido aplicando esta
 função a todos os sufixos da sequência de entrada.
 
 """
+def maior(lista):
+    print(lista)
+    if lista == []:
+        return 0
+    comprimento = 1
+    ant = lista[0]
+    for i in range(len(lista)):
+        if ant <= lista[i]:
+            ant = lista[i]
+            comprimento += 1
+    return comprimento
+
+def crescente(lista):
+    d = {}
+    if lista == []:
+        return 0
+    for i,elem in enumerate(lista):
+        d[elem] = (maior(lista[i:]) -1)
+        print(d)
+    return d[max(d.keys(), key=(lambda x: d[x]))]
