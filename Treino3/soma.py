@@ -10,3 +10,22 @@ implementada, é relativamente adaptá-la para devolver também a maior soma de 
 a lista.
 
 """
+def somaAux(lista, d):
+    if lista == []:
+        return 0
+    soma = 0
+    for elem in lista:
+        d[elem] = (soma + elem)
+        soma += elem
+    return d[max(d.keys(), key=(lambda x: d[x]))]
+
+def maxsoma(lista):
+    if lista == []:
+        return 0
+    if len(lista) == 1:
+        return lista[0]
+    l = []
+    for i,elem in enumerate(lista):
+        l.append(somaAux(lista[i:], {}))
+    print(l)
+    return max(l)
