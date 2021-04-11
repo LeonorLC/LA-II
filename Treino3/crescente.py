@@ -11,7 +11,6 @@ função a todos os sufixos da sequência de entrada.
 
 """
 def maior(lista):
-    print(lista)
     if lista == []:
         return 0
     comprimento = 1
@@ -28,5 +27,4 @@ def crescente(lista):
         return 0
     for i,elem in enumerate(lista):
         d[elem] = (maior(lista[i:]) -1)
-        print(d)
     return d[max(d.keys(), key=(lambda x: d[x]))]
