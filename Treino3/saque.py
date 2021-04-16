@@ -15,3 +15,20 @@ atravessa o campo deslocando-se apenas para a direita e para baixo. Assuma que
 é sempre possível atravessar o campo dessa forma.
 
 """
+##Programação dinamica##
+def saque(mapa):
+    n = len(mapa)
+    m = len(mapa[0])
+    cache = [[0 for x in range(m + 1)] for x in range(n + 1)]
+    
+    for y in range(n + 1):
+        for x in range(m + 1):
+            if x == 0 or y == 0:
+                cache[y][x] = 0
+            elif mapa[y-1][x-1] == '#':
+                cache[y][x] = -1
+            elif mapa[y-1][x-1] != '.':
+                cache[y][x] = int(mapa[y-1][x-1]) + max(cache[y-1][x], cache[y-1][x-1], cache[y][x-1])
+            else:
+                cache[y][x] = max(cache[y-1][x], cache[y-1][x-1], cache[y][x-1])
+    return cache[n][m]
