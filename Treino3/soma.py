@@ -10,6 +10,21 @@ implementada, é relativamente adaptá-la para devolver também a maior soma de 
 a lista.
 
 """
+#Versão programação dinâmica (13%)
+def maxsoma(lista):
+    if lista == []:
+        return 0
+    if len(lista) == 1:
+        return lista[0]
+    soma = lista[0]
+    l = [soma]
+    i = 1
+    for i in range(1, len(lista)):
+        l.append(max(l[i-1] + lista[i], lista[i]))
+        soma = max(soma, l[i])
+    return soma
+
+#Versão recursiva (11%)
 def somaAux(lista, d):
     if lista == []:
         return 0
