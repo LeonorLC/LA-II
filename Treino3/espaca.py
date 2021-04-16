@@ -9,3 +9,34 @@ como válidas. Por maior entende-se a que recupera o maior prefixo da string
 de entrada. Só serão usados testes em que a maior frase é única.
 
 """
+def palavra (letraInicial, posInicial, frase, palavras, compMaior):
+    if frase == "" or palavras == []:
+        return ""
+    pal = letraInicial
+    posFinal = 0 
+    l = ""
+    for i,letra in enumerate(frase):
+        if len(pal) < compMaior and (pal + letra) in palavras:
+            l = (pal+letra)
+            posFinal = i
+        pal += letra
+    if l == "":
+        l = letraInicial
+    posFinal += posInicial + 1
+    return (l, posFinal)
+
+def espaca(frase, palavras):
+    if frase == "" or palavras == []:
+        return ""
+    compMaior = max(map(len, palavras))
+    fraseFinal = ""
+    i = 0
+    p = ""
+    while i < len(frase):
+        (pal, pos) = palavra(frase[i], i+1, frase[i+1:], palavras, compMaior)
+        fraseFinal += pal + " "
+        if len(pal) == 1:
+            (pal, pos) = palavra(frase[i+1], i+1, frase[i+1:], palavras, compMaior)
+            fraseFinal += pal + " "
+        i = pos
+    return fraseFinal[:-1]
