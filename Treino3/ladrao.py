@@ -10,6 +10,22 @@ venda no mercado negro, e o seu peso. Deve devolver o máximo lucro que o ladrã
 poderá  obter para a capacidade de carga especificada.
 
 """
+#Versão programação dinâmica (13%)
+def ladrao(capacidade, objetos):
+    rouba = [[0 for x in range(capacidade + 1)] for y in range(len(objetos) + 1)]
+    for i in range(len(objetos) + 1):
+        for peso in range(capacidade + 1):
+            if i == 0 or peso == 0:
+                rouba[i][peso] = 0
+            elif peso < objetos[i-1][2]:
+                rouba[i][peso] = rouba[i-1][peso]
+            else:
+                rouba[i][peso] = max(objetos[i-1][1] + rouba[i-1][peso - objetos[i-1][2]], rouba[i-1][peso])
+                
+    return rouba[len(objetos)][capacidade]
+
+#Versão Recursiva (9%)
+#Auxiliar
 def aux(capacidade, objetos):
     if objetos == [] or capacidade == 0:
         return 0
