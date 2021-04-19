@@ -19,6 +19,32 @@ Caso haja 2 produtos com a mesma rentabilidade por peso deverá dar prioridade
 aos produtos que aparecem primeiro na lista de entrada.
 
 """
+#Versão programação dinâmica (13%)
+def vendedor(capacidade, produtos):
+    if produtos == [] or capacidade == 0:
+        return (0,[])
+    transp = [[(0,[]) for x in range(capacidade + 1)] for y in range(len(produtos) + 1)]
+    
+    for i in range(len(produtos) + 1):
+        for peso in range(capacidade + 1):
+            if i == 0 or peso == 0:
+                transp[i][peso] = (0,[])
+            elif peso < produtos[i-1][2]:
+                transp[i][peso] = transp[i-1][peso]
+            else:
+                a = transp[i-1][peso]
+                b = transp[i][peso-produtos[i-1][2]]
+                c = transp[i-1][peso-produtos[i-1][2]]
+                b = (b[0] + produtos[i-1][1], b[1] + [produtos[i-1][0]])
+                c = (c[0] + produtos[i-1][1], c[1] + [produtos[i-1][0]])
+                
+                transp[i][peso] = max(a, b, c, key=lambda x: x[0])
+                
+    transp[len(produtos)][capacidade][1].sort()
+    return transp[len(produtos)][capacidade]
+
+#Versão Recursiva (8%)
+#Auxiliar
 def aux(capacidade, produtos, p):
     if produtos == [] or capacidade == 0:
         return 0
